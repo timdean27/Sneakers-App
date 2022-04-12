@@ -1,0 +1,38 @@
+<label for="name">Enter the Shoe Name</label>
+<input type="text" id="name" name="name" value="<%=sneaker.name%>" />
+<br>
+<label for="brand">Enter the Shoe Brand</label>
+<input type="text" id="brand" name="brand" value="<%=sneaker.brand%>" />
+
+<br>
+<label for="size">Enter the Shoe Size</label>
+<input type="number" maxlength="1" step=".5" min="1" max="20" id="size" name="size" value="<%=sneaker.size%>"/>
+
+<br>
+<label for="color">Enter the Shoe Color</label>
+<input type="text" id="color" name="color" value="<%=sneaker.color%>"/>
+
+<br>
+<label for="styleCode">Enter the Shoe Style Code</label>
+<input type="text" id="styleCode" name="styleCode" value="<%=sneaker.styleCode%>"/>
+
+<br>
+<label for="file">Enter file</label>
+<input type="file" id="file" name="file"/>
+
+<br>
+
+
+
+
+
+
+ <div>
+<% if(sneaker.current === true){ %>
+<input type="checkbox" id="complete" name="complete" checked="true" />
+<% } else { %>
+<%sneaker.current = false%>
+<input type="checkbox" id="complete" name="complete" />
+<% } %>
+<label class="form-check-label" for="complete">Current</label>
+</div>

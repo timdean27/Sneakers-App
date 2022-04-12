@@ -1,0 +1,24 @@
+[   
+    {
+    "name":"Test1",
+    "brand": "Jordan",
+    "size": "11.5",
+    "color": "Test1Color",
+    "styleCode" : "CW6421-100",
+    "current": true
+    },
+    {
+        "name":"Test2",
+        "brand": "Nike",
+        "size": "7.5",
+        "color": "Test2Color",
+        "styleCode" : "CW6421-100",
+        "current": true
+        }
+]
+
+
+
+
+
+

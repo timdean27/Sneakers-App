@@ -5,11 +5,16 @@ const router = express.Router();
 /////index is "home"
 
 router.get('/', (req, res) => {
-
-    Sneaker.find({})
+    let searchOptions = {}
+    if(req.query.name != null && req.query.name !== '')
+    {
+      searchOptions.name = new RegExp(req.query.name, 'i')
+    }
+    Sneaker.find(searchOptions)
     .then((sneaker) => res.render('index.ejs',
     {
-        sneakers:sneaker
+        sneakers:sneaker,
+        searchOptions: req.query
     }
     ))
     .catch(err => res.send(err))
@@ -24,8 +29,8 @@ router.get('/new', (req, res) => {
   })
 
 router.post('/', (req, res) => {
-    
-    req.body.size = req.body.size[0]
+    req.body.styleCode = req.body.styleCode.toUpperCase()
+    req.body.size = parseInt(req.body.size[0])
     //console.log(req.body.size)
     Sneaker.create(req.body)
     .then(() => {
@@ -64,7 +69,8 @@ router.get('/:id/edit', (req, res) => {
 });
 //find by ID
 router.put('/:id', (req, res) => {
-    req.body.size = req.body.size[0]
+    req.body.styleCode = req.body.styleCode.toUpperCase()
+    req.body.size = parseInt(req.body.size[0])
     const id = req.params.id;
     Sneaker.findByIdAndUpdate(
         id,

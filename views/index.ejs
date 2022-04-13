@@ -10,10 +10,16 @@
         <a href="home/new" >New</a>
     </header>
     <body>
-        
         <h1>GA-Project2</h1>
+        <form action="/Home" method="GET">
+            <label>Search by Name</label>
+            <input type="text" name="name" value="<%= searchOptions.name%>">
+            <button type="submit">Search</button>
+          </form>
+          <br><br>
         <ul>
             <% for(let i = 0; i < sneakers.length; i++) { %>
+                <div class="sneakerDisplayBox">
                 <li>Name:   <a href="/Home/<%=sneakers[i]._id%>"> <%=sneakers[i].name%></a></li>
                 <li>Brand:  <%=sneakers[i].brand%></a></li>
                 <li>ID: <%=sneakers[i]._id%></li>
@@ -25,7 +31,7 @@
                 <a href="/home/<%=sneakers[i]._id%>/edit">Edit</a>
                 
                 <form action="/home/<%=sneakers[i]._id%>?_method=DELETE" method="POST"><input type="submit" value="Delete" /></form>
-                
+                </div>
                 <br>
             <% } %>
         </ul>

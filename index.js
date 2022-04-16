@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express()
+require('ejs')
 const ejsLayouts = require('express-ejs-layouts');
 const methodOverride = require('method-override')
 //const cors = require('cors')
@@ -9,6 +10,7 @@ app.set('view engine', 'ejs');
 
 
 //app.use(cors())
+app.use(express.static('public'))
 app.use(methodOverride('_method'));
 app.use(express.json());
 app.use(ejsLayouts);

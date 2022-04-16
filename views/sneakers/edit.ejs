@@ -1,9 +1,9 @@
 <head>
     <h1>Edit Sneaker: <%=sneaker.brand%></h1>
     </head>
-    <form action="/home/<%=sneaker._id%>/?_method=put" method="post">
-        <%- include('../partials/form_fields.ejs') %>
-      
+    <form action="/home/<%=sneaker._id%>/?_method=put" method="POST">
+        <%- include('../../partials/creat_forms.ejs') %>
+        
 
         <br>
         <button type="submit">Submit</button>

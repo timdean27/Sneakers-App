@@ -20,7 +20,7 @@
           <div class ="container">
                
                     <% for(let i = 0; i < sneakers.length; i++) { %>
-                        
+                        <% if(sneakers[i].current == true) { %>
                             <ul>
                                 <div class="sneakerDisplayBox"> 
                                     <img src="<%=sneakers[i].imageLinks%>" height="200" width="200" />
@@ -38,7 +38,7 @@
 
                                 </div>
                             </ul>
-                        
+                            <% } %>
                     <% } %>
                 
         </div>

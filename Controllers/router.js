@@ -9,17 +9,17 @@ router.get('/', (req, res) => {
   let filter = req.query.dropDown
   let sortBY = {}
   let sortReturn = sortFunc(sortBY,filter)
-  
+
 
   let search = {}
   let typedname = req.query.name
   let typedsize = req.query.size
-  
+
   let searchReturn = searchFunc(search,typedname,typedsize)
   console.log("search",search)
-  
+
   Sneaker.find(searchReturn).sort(sortReturn)
-    .then((sneaker) => res.render('sneakers/nonCurrent',
+    .then((sneaker) => res.render('sneakers/current',
     {
         sneakers:sneaker,
         search: req.query
@@ -41,10 +41,10 @@ router.get('/nonCurrent', (req, res) => {
   let search = {}
   let typedname = req.query.name
   let typedsize = req.query.size
-  
+
   let searchReturn = searchFunc(search,typedname,typedsize)
   console.log("searchReturn",searchReturn)
-  
+
   Sneaker.find(searchReturn).sort(sortReturn)
     .then((sneaker) => res.render('sneakers/nonCurrent',
     {
@@ -53,16 +53,16 @@ router.get('/nonCurrent', (req, res) => {
     }
     ))
     .catch(err => res.send(err))
-   
+
 });
 
 
 //create route = addes data into the model
 router.get('/new', (req, res) => {
   oneback = req.get('referer')
-  
+
   res.render('sneakers/new', { sneaker: new Sneaker()})
-   
+
   })
 
 router.post('/', (req, res) => {
@@ -78,7 +78,6 @@ router.post('/', (req, res) => {
       })
     .catch(err => res.send(err))
 })
-
 ///show by ID
 router.get('/:id', (req, res) => {
     const id = req.params.id;
@@ -99,7 +98,7 @@ router.get('/:id', (req, res) => {
 router.get('/:id/edit', (req, res) => {
     const id = req.params.id;
     oneback = req.get('referer')
-    
+
     Sneaker.findById(id)
     .then(sneaker => res.render('sneakers/edit',
     {
@@ -107,7 +106,7 @@ router.get('/:id/edit', (req, res) => {
     }
     ))
     .catch(err => res.send(err))
-   
+
 });
 
 
@@ -116,7 +115,7 @@ router.put('/:id', (req, res) => {
     req.body.styleCode = req.body.styleCode.toUpperCase()
     req.body.size = parseFloat(req.body.size)
     req.body.current == "true" ? req.body.current = true : req.body.current = false
-    
+
     const id = req.params.id;
     Sneaker.findByIdAndUpdate(
         id,
@@ -125,7 +124,7 @@ router.put('/:id', (req, res) => {
     .then(() => {
         res.redirect(oneback);
       })
-    
+
     .catch(err => res.send(err))
   });
 
@@ -174,8 +173,8 @@ return search
 ///sortfunction
 function sortFunc(sortBY,filter){
   console.log("Printing from sortFunc",filter)
-  
-  
+
+
   if(filter == "priceHighLow"){
     sortBY = {retailPrice: -1}
   }
@@ -191,6 +190,4 @@ function sortFunc(sortBY,filter){
   console.log("Printing from sortFunc sortBY ",sortBY)
  return sortBY
 }
-  
-  
   

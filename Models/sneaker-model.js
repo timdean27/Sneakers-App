@@ -2,11 +2,14 @@ const mongoose = require('../Db/connection');
 
 const SneakerSchema = new mongoose.Schema(
     {
-        name: {type: String,required: true,},
+        name: {type: String,required: true},
         brand: {type: String},
-        size: {type: Number,required: true,},
+        size: {type: Number,required: true},
         color: {type: String},
-        styleCode: {type: String,required: true,},
+        style:{type: String},
+        styleCode: {type: String,required: true},
+        retailPrice: {type: Number},
+        imageLinks: [String],
         current: {type: Boolean, default: true,}
     },
     

@@ -1,17 +1,22 @@
 <!DOCTYPE html>
 <html>
-    <link rel="stylesheet" type="text/css" href="homeStyles.css"/>
+    
 
     <head>
         <meta charset="utf-8">
         <title>GA-Project2</title>
     </head>
     <header>
-        <h1>Sneakers App: No Current</h1>
-        <%- include('../../partials/search.ejs') %>
-        <a href="/home/new" >New</a>
+        <h1>Sneakers App: Non-Current</h1>
+        
     </header>
     <body>
+        <div>
+            <form action="/Home/nonCurrent" method="GET"><%- include('../../partials/search.ejs') %></form>
+            
+
+            <a href="../home/new" >New</a>
+            </div>
 
           <br><br>
           
@@ -21,15 +26,17 @@
                         <% if(sneakers[i].current == false) { %>
                             <ul>
                                 <div class="sneakerDisplayBox">
+                                    <img src="<%=sneakers[i].imageLinks%>" height="145.4px" width="204px" />
                                     <li>Name:   <a href="/Home/<%=sneakers[i]._id%>"> <%=sneakers[i].name%></a></li>
                                     <li>Brand:  <%=sneakers[i].brand%></a></li>
-                                    <li>ID: <%=sneakers[i]._id%></li>
                                     <li>Size:   <%=sneakers[i].size %></li>
                                     <li>Color:  <%=sneakers[i].color %></li>
+                                    <li>Style:  <%=sneakers[i].style %></li>
                                     <li>Style Code: <%=sneakers[i].styleCode %></li>
+                                    <li>Retail Price:  <%=sneakers[i].retailPrice %></li>
                                     <li>Current:    <%=sneakers[i].current %></li>
-                                
-                                    <a href="/home/<%=sneakers[i]._id%>/edit">Edit</a>
+                                    <li>ID: <%=sneakers[i]._id%></li>
+                                    <a class="edit-button" href="/home/<%=sneakers[i]._id%>/edit">Edit</a>
                                     <form action="/home/<%=sneakers[i]._id%>?_method=DELETE" method="POST"><input type="submit" value="Delete" /></form>
 
                                 </div>

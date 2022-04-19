@@ -1,29 +1,25 @@
 const express = require('express');
 const Sneaker = require('../models/sneaker-model');
 const router = express.Router();
+let oneback
 
-/////current is "home"
 
+/////current is "/home"
 router.get('/', (req, res) => {
-    let search = {}
-    let typedname = req.query.name
-    let typedsize = req.query.size
-    //console.log("typedname",typedname)
-    //console.log("typedsize",typedsize)
-    //console.log("search",search)
-    //console.log("search.name",search.name)
-    if(req.query.name != null && req.query.name !== '')
-    {
-      search.name = new RegExp(typedname, 'i')
-      //console.log("search.name2",search.name)
-    }
-    if(req.query.size != null && req.query.name == '')
-    {
-      search.size = typedsize
-      //console.log("search.size",search.size)
-    }
-    Sneaker.find(search)
-    .then((sneaker) => res.render('sneakers/current',
+  let filter = req.query.dropDown
+  let sortBY = {}
+  let sortReturn = sortFunc(sortBY,filter)
+  
+
+  let search = {}
+  let typedname = req.query.name
+  let typedsize = req.query.size
+  
+  let searchReturn = searchFunc(search,typedname,typedsize)
+  console.log("search",search)
+  
+  Sneaker.find(searchReturn).sort(sortReturn)
+    .then((sneaker) => res.render('sneakers/nonCurrent',
     {
         sneakers:sneaker,
         search: req.query
@@ -34,56 +30,51 @@ router.get('/', (req, res) => {
 });
 
 router.get('/nonCurrent', (req, res) => {
+  //let filter = document.getElementById('dropDown')
+  //let filter = req.get('dropDown')
+  let filter = req.query.dropDown
+  let sortBY = {}
+  console.log("filter",filter)
+  let sortReturn = sortFunc(sortBY,filter)
+  console.log("sortReturn",sortReturn)
+
   let search = {}
   let typedname = req.query.name
   let typedsize = req.query.size
-  //console.log("typedname",typedname)
-  //console.log("typedsize",typedsize)
-  //console.log("search",search)
-  //console.log("search.name",search.name)
-  if(req.query.name != null && req.query.name !== '')
-  {
-    search.name = new RegExp(typedname, 'i')
-    //console.log("search.name2",search.name)
-  }
-  if(req.query.size != null && req.query.name == '')
-  {
-    search.size = typedsize
-    //console.log("search.size",search.size)
-  }
-  Sneaker.find(search)
-  .then((sneaker) => res.render('sneakers/nonCurrent',
-  {
-      sneakers:sneaker,
-      search: req.query
-  }
-  ))
-  .catch(err => res.send(err))
- 
+  
+  let searchReturn = searchFunc(search,typedname,typedsize)
+  console.log("searchReturn",searchReturn)
+  
+  Sneaker.find(searchReturn).sort(sortReturn)
+    .then((sneaker) => res.render('sneakers/nonCurrent',
+    {
+        sneakers:sneaker,
+        search: req.query
+    }
+    ))
+    .catch(err => res.send(err))
+   
 });
-
 
 
 //create route = addes data into the model
 router.get('/new', (req, res) => {
-    res.render('sneakers/new', { sneaker: new Sneaker()})
+  oneback = req.get('referer')
+  
+  res.render('sneakers/new', { sneaker: new Sneaker()})
    
   })
 
 router.post('/', (req, res) => {
     req.body.styleCode = req.body.styleCode.toUpperCase()
     req.body.size = parseFloat(req.body.size)
-    if (req.body.current == "true") {
-      console.log("current","true",req.body.current);
-      req.body.current = true
-    } else {
-      console.log("current","false",req.body.current);
-      req.body.current = false
-    }
-    //console.log(req.body.size)
+
+    req.body.current == "true" ? req.body.current = true : req.body.current = false
+
+
     Sneaker.create(req.body)
     .then(() => {
-        res.redirect('/home');
+        res.redirect(oneback);
       })
     .catch(err => res.send(err))
 })
@@ -103,11 +94,12 @@ router.get('/:id', (req, res) => {
 ///show by ID
 
 // route to udate a sneaker
-
 //find by ID
+
 router.get('/:id/edit', (req, res) => {
     const id = req.params.id;
-
+    oneback = req.get('referer')
+    
     Sneaker.findById(id)
     .then(sneaker => res.render('sneakers/edit',
     {
@@ -117,27 +109,23 @@ router.get('/:id/edit', (req, res) => {
     .catch(err => res.send(err))
    
 });
+
+
 //edit by ID we found
 router.put('/:id', (req, res) => {
     req.body.styleCode = req.body.styleCode.toUpperCase()
     req.body.size = parseFloat(req.body.size)
-    if (req.body.current == "true") {
-      console.log("print current","true",req.body.current);
-      req.body.current = true
-    } else {
-      console.log("print current","false",req.body.current);
-      console.log("print currentType","false",(typeof req.body.current));
-      req.body.current = false
-    }
+    req.body.current == "true" ? req.body.current = true : req.body.current = false
+    
     const id = req.params.id;
     Sneaker.findByIdAndUpdate(
         id,
         req.body
         )
     .then(() => {
-        res.redirect('/home');
+        res.redirect(oneback);
       })
-    // .then(sneaker => res.json(sneaker))
+    
     .catch(err => res.send(err))
   });
 
@@ -145,15 +133,64 @@ router.put('/:id', (req, res) => {
 /////Delete by id
 router.delete('/:id', (req, res) => {
     const id = req.params.id;
-  
+    oneback = req.get('referer')
     Sneaker.findByIdAndDelete(id)
     .then(() => {
-        res.redirect('/home');
+        res.redirect(oneback);
       })
       .catch(console.error);
         });
 
 
- 
-
 module.exports = router
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//Functions and Logic 
+
+///search function
+function searchFunc(search,typedname,typedsize){ 
+
+if(typedname != null && typedname !== '')
+{
+  search.name = new RegExp(typedname, 'i')
+  //console.log("search.name2",search.name)
+}
+if(typedsize != null && typedname == '' && typedsize != '')
+{
+  search.size = typedsize
+  //console.log("search.size",search.size)
+}
+if(typedname != null && typedname !== '' && typedsize != '' && typedsize != null)
+{
+  search.name = new RegExp(typedname, 'i')
+  search.size = typedsize
+  //console.log("search.name2",search.name)
+}
+return search
+}
+
+///sortfunction
+function sortFunc(sortBY,filter){
+  console.log("Printing from sortFunc",filter)
+  
+  
+  if(filter == "priceHighLow"){
+    sortBY = {retailPrice: -1}
+  }
+  else if (filter == "sizeLtoS"){
+    sortBY = {size: -1}
+  }
+  else if (filter == "sizeStoL"){
+    sortBY = {size: 1}
+  }
+  else{
+    sortBY = {retailPrice: 1}
+  }
+  console.log("Printing from sortFunc sortBY ",sortBY)
+ return sortBY
+}
+  
+  
+  

@@ -6,6 +6,7 @@ const methodOverride = require('method-override')
 //const cors = require('cors')
 
 const requireRouter = require('./Controllers/router');
+const requireReleaseRouter = require('./Controllers/releaseRoutes');
 app.set('view engine', 'ejs');
 
 
@@ -16,6 +17,7 @@ app.use(express.json());
 app.use(ejsLayouts);
 app.use(express.urlencoded({ extended: true }));
 app.use('/home', requireRouter);
+app.use('/releases', requireReleaseRouter);
 
 
 

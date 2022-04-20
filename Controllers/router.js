@@ -55,32 +55,7 @@ router.get('/nonCurrent', (req, res) => {
 
 });
 
-router.get('/releases', (req, res) => {
-  //let searchFilter = document.getElementById('dropDown')
-  //let searchFilter = req.get('dropDown')
-  let searchFilter = req.query.dropDown
-  let sortBY = {}
-  console.log("filter",searchFilter)
-  let sortReturn = sortFunc(sortBY,searchFilter)
-  console.log("sortReturn",sortReturn)
 
-  let search = {}
-  let typedname = req.query.name
-  let typedsize = req.query.size
-
-  let searchReturn = searchFunc(search,typedname,typedsize)
-  console.log("searchReturn",searchReturn)
-
-  Sneaker.find(searchReturn).sort(sortReturn)
-    .then((sneaker) => res.render('sneakers/releases',
-    {
-        sneakers:sneaker,
-        search: req.query
-    }
-    ))
-    .catch(err => res.send(err))
-
-});
 
 //create route = addes data into the model
 router.get('/new', (req, res) => {
@@ -150,6 +125,7 @@ router.put('/:id', (req, res) => {
 
     .catch(err => res.send(err))
   });
+
 
 
 /////Delete by id

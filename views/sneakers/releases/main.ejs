@@ -10,16 +10,21 @@
         <h1>Sneakers App: Upcoming Sneaker Releases</h1>
         
     </header>
+
+    <a href="/releases/jordan" >Jordan</a> <a href="/releases/nike" >Nike</a> <a href="/releases/adidas" >Adidas</a>
+
     <body>
         <div>
-            <form action="/Home/nonCurrent" method="GET"><%- include('../../partials/search.ejs') %></form>
+            <form action="/releases" method="GET"><%- include('../../../partials/search.ejs') %></form>
             
 
-            <a href="../home/new" >New</a>
+            <a href="/home/new" >New</a>
             </div>
 
           <br><br>
-          
+          <div></div>
+
+
           <div class ="container">
                
                     <% for(let i = 0; i < sneakers.length; i++) { %>

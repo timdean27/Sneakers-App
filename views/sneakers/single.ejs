@@ -21,7 +21,7 @@
                     <li>Style:  <%=sneaker.style %></li>
                     <li>Style Code: <%=sneaker.styleCode %></li>
                     <li>Retail Price:  <%=sneaker.retailPrice %></li>
-                    <li>Current:    <%=sneaker.current %></li>
+                    <li>Current:    <%=sneaker.status %></li>
                     <li>ID: <%=sneaker._id%></li>
                     <a class ="edit-button" href="/home/<%=sneaker._id%>/edit">Edit</a>
                     <form action="/home/<%=sneaker._id%>?_method=DELETE" method="POST"><input type="submit" value="Delete" /></form>

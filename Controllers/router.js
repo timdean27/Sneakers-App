@@ -6,17 +6,16 @@ let oneback
 
 /////current is "/home"
 router.get('/', (req, res) => {
-  let filter = req.query.dropDown
+  
+  let searchFilter = req.query.dropDown
   let sortBY = {}
-  let sortReturn = sortFunc(sortBY,filter)
-
+  let sortReturn = sortFunc(sortBY,searchFilter)
 
   let search = {}
   let typedname = req.query.name
   let typedsize = req.query.size
-
   let searchReturn = searchFunc(search,typedname,typedsize)
-  console.log("search",search)
+  console.log("searchReturn",searchReturn)
 
   Sneaker.find(searchReturn).sort(sortReturn)
     .then((sneaker) => res.render('sneakers/current',
@@ -30,12 +29,12 @@ router.get('/', (req, res) => {
 });
 
 router.get('/nonCurrent', (req, res) => {
-  //let filter = document.getElementById('dropDown')
-  //let filter = req.get('dropDown')
-  let filter = req.query.dropDown
+  //let searchFilter = document.getElementById('dropDown')
+  //let searchFilter = req.get('dropDown')
+  let searchFilter = req.query.dropDown
   let sortBY = {}
-  console.log("filter",filter)
-  let sortReturn = sortFunc(sortBY,filter)
+  console.log("filter",searchFilter)
+  let sortReturn = sortFunc(sortBY,searchFilter)
   console.log("sortReturn",sortReturn)
 
   let search = {}
@@ -56,6 +55,32 @@ router.get('/nonCurrent', (req, res) => {
 
 });
 
+router.get('/releases', (req, res) => {
+  //let searchFilter = document.getElementById('dropDown')
+  //let searchFilter = req.get('dropDown')
+  let searchFilter = req.query.dropDown
+  let sortBY = {}
+  console.log("filter",searchFilter)
+  let sortReturn = sortFunc(sortBY,searchFilter)
+  console.log("sortReturn",sortReturn)
+
+  let search = {}
+  let typedname = req.query.name
+  let typedsize = req.query.size
+
+  let searchReturn = searchFunc(search,typedname,typedsize)
+  console.log("searchReturn",searchReturn)
+
+  Sneaker.find(searchReturn).sort(sortReturn)
+    .then((sneaker) => res.render('sneakers/releases',
+    {
+        sneakers:sneaker,
+        search: req.query
+    }
+    ))
+    .catch(err => res.send(err))
+
+});
 
 //create route = addes data into the model
 router.get('/new', (req, res) => {
@@ -69,15 +94,13 @@ router.post('/', (req, res) => {
     req.body.styleCode = req.body.styleCode.toUpperCase()
     req.body.size = parseFloat(req.body.size)
 
-    req.body.current == "true" ? req.body.current = true : req.body.current = false
-
-
     Sneaker.create(req.body)
     .then(() => {
         res.redirect(oneback);
       })
     .catch(err => res.send(err))
 })
+
 ///show by ID
 router.get('/:id', (req, res) => {
     const id = req.params.id;
@@ -114,7 +137,7 @@ router.get('/:id/edit', (req, res) => {
 router.put('/:id', (req, res) => {
     req.body.styleCode = req.body.styleCode.toUpperCase()
     req.body.size = parseFloat(req.body.size)
-    req.body.current == "true" ? req.body.current = true : req.body.current = false
+
 
     const id = req.params.id;
     Sneaker.findByIdAndUpdate(
@@ -171,17 +194,17 @@ return search
 }
 
 ///sortfunction
-function sortFunc(sortBY,filter){
-  console.log("Printing from sortFunc",filter)
+function sortFunc(sortBY,searchFilter){
+  console.log("Printing from sortFunc",searchFilter)
 
 
-  if(filter == "priceHighLow"){
+  if(searchFilter == "priceHighLow"){
     sortBY = {retailPrice: -1}
   }
-  else if (filter == "sizeLtoS"){
+  else if (searchFilter== "sizeLtoS"){
     sortBY = {size: -1}
   }
-  else if (filter == "sizeStoL"){
+  else if (searchFilter == "sizeStoL"){
     sortBY = {size: 1}
   }
   else{
@@ -190,4 +213,6 @@ function sortFunc(sortBY,filter){
   console.log("Printing from sortFunc sortBY ",sortBY)
  return sortBY
 }
-  
+
+
+

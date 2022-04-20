@@ -10,7 +10,7 @@ const SneakerSchema = new mongoose.Schema(
         styleCode: {type: String,required: true},
         retailPrice: {type: Number},
         imageLinks: [String],
-        current: {type: Boolean, default: true,}
+        status: {type: String, default: "current",}
     },
     
   );

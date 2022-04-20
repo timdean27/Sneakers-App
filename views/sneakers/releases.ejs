@@ -7,7 +7,7 @@
         <title>GA-Project2</title>
     </head>
     <header>
-        <h1>Sneakers App: Non-Current</h1>
+        <h1>Sneakers App: Upcoming Sneaker Releases</h1>
         
     </header>
     <body>
@@ -23,7 +23,7 @@
           <div class ="container">
                
                     <% for(let i = 0; i < sneakers.length; i++) { %>
-                        <% if(sneakers[i].status == "non-current") { %>
+                        <% if(sneakers[i].status == "upcoming") { %>
                             <ul>
                                 <div class="sneakerDisplayBox">
                                     <img src="<%=sneakers[i].imageLinks%>" height="145.4px" width="204px" />

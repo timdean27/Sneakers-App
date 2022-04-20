@@ -33,6 +33,17 @@
         "current": true
         },
         {
+            "name":"Jordan 1 Retro High",
+            "brand": "Jordan",
+            "size": 7,
+            "color": "Test1Color",
+            "style": "White University Blue Black",
+            "styleCode": "555088-134",
+            "retailPrice": 175,
+            "imageLinks": "https://cdn.flightclub.com/750/TEMPLATE/172524/1.jpg",
+            "current": true
+            },
+        {
             "name":"'PASSPORT PACK - ARGON'",
             "brand": "Nike",
             "size": 7,
@@ -42,7 +53,29 @@
             "retailPrice": 120,
             "imageLinks": "https://cdn.flightclub.com/2200/TEMPLATE/292478/1.jpg",
             "current": false
-            }
+            },
+            {
+                "name":"JADE HORIZON",
+                "brand": "Jordan",
+                "size": 8,
+                "color": "jade horizon/light silver/anthracite/pink glaze",
+                "style": "AIR JORDAN 5 RETRO",
+                "styleCode": "dc7501 300",
+                "retailPrice": 220,
+                "imageLinks": "https://cdn.flightclub.com/2200/TEMPLATE/261145/1.jpg",
+                "current": false
+                },
+                {
+                    "name":"JADE HORIZON",
+                    "brand": "Jordan",
+                    "size": 7,
+                    "color": "jade horizon/light silver/anthracite/pink glaze",
+                    "style": "AIR JORDAN 5 RETRO",
+                    "styleCode": "dc7501 300",
+                    "retailPrice": 220,
+                    "imageLinks": "https://cdn.flightclub.com/2200/TEMPLATE/261145/1.jpg",
+                    "current": true
+                    }
 ]
 
 

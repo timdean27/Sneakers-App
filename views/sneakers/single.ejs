@@ -13,7 +13,7 @@
        
             <ul>
                 <div class="singleDisplayBox">
-                    <img src="<%=sneaker.imageLinks%>" height="300" width="300"/>
+                    <img src="<%=sneaker.imageLinks%>" height="242" width="340"/>
                     <li>Name:   <%=sneaker.name%></a></li>
                     <li>Brand:  <%=sneaker.brand%></a></li>
                     <li>Size:   <%=sneaker.size %></li>
@@ -23,7 +23,7 @@
                     <li>Retail Price:  <%=sneaker.retailPrice %></li>
                     <li>Current:    <%=sneaker.current %></li>
                     <li>ID: <%=sneaker._id%></li>
-                    <a href="/home/<%=sneaker._id%>/edit">Edit</a>
+                    <a class ="edit-button" href="/home/<%=sneaker._id%>/edit">Edit</a>
                     <form action="/home/<%=sneaker._id%>?_method=DELETE" method="POST"><input type="submit" value="Delete" /></form>
 
                 </div>

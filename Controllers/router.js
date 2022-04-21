@@ -113,7 +113,6 @@ router.put('/:id', (req, res) => {
     req.body.styleCode = req.body.styleCode.toUpperCase()
     req.body.size = parseFloat(req.body.size)
 
-
     const id = req.params.id;
     Sneaker.findByIdAndUpdate(
         id,

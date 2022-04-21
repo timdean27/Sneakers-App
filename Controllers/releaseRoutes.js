@@ -10,7 +10,7 @@ routerRelease.get('/', (req, res) => {
   });
 
   routerRelease.get('/:brand', (req, res) => {
-    let brand = req.params.brand
+    let brand = capFirstLetter(req.params.brand)
     console.log("brand",brand)
     //let searchFilter = document.getElementById('dropDown')
     //let searchFilter = req.get('dropDown')
@@ -87,3 +87,8 @@ function searchFunc(search,typedname,typedsize){
       console.log("Printing from sortFunc sortBY ",sortBY)
      return sortBY
     }
+
+    /////make first letter of cap
+function capFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}

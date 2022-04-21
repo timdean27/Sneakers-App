@@ -6,7 +6,7 @@
         <title>GA-Project2</title>
     </head>
     <header>
-        <h1>Sneakers App: Current</h1>
+        <h1>Sneakers in Current Collection</h1>
         
     </header>
     <body>
@@ -17,13 +17,14 @@
 
           <br><br>
           
-          <div class ="container">
+          
                
                     <% for(let i = 0; i < sneakers.length; i++) { %>
                         <% if(sneakers[i].status == "current") { %>
+                            <div class ="single-sneaker-Container">
                             <ul>
-                                <div class="sneakerDisplayBox"> 
-                                    <img src="<%=sneakers[i].imageLinks%>" height="200" width="200" />
+                                <div class="sneakerDisplayBox">
+                                    <img src="<%=sneakers[i].imageLinks%>" height="145.4px" width="204px" />
                                     <li>Name:   <a href="/Home/<%=sneakers[i]._id%>"> <%=sneakers[i].name%></a></li>
                                     <li>Brand:  <%=sneakers[i].brand%></a></li>
                                     <li>Size:   <%=sneakers[i].size %></li>
@@ -31,17 +32,25 @@
                                     <li>Style:  <%=sneakers[i].style %></li>
                                     <li>Style Code: <%=sneakers[i].styleCode %></li>
                                     <li>Retail Price:  <%=sneakers[i].retailPrice %></li>
+                                    <li>Release Date:  <%=sneakers[i].releaseDate %></li>
+                                    <li>URL: <a href="<%=sneakers[i].urlflightClub %>"><%=sneakers[i].urlflightClub %></a></li>
                                     <li>Current:    <%=sneakers[i].status %></li>
                                     <li>ID: <%=sneakers[i]._id%></li>
-                                    <a class="edit-button" href="/home/<%=sneakers[i]._id%>/edit">Edit</a>
-                                    <form action="/home/<%=sneakers[i]._id%>?_method=DELETE" method="POST"><input type="submit" value="Delete" /></form>
+                                    
 
                                 </div>
                             </ul>
+                            <div class ="sneaker-Btn-Box">
+                            
+                                    <a class="edit-button" href="/home/<%=sneakers[i]._id%>/edit">Edit</a>
+                                    <form action="/home/<%=sneakers[i]._id%>?_method=DELETE" method="POST"><input type="submit" value="Delete" /></form>
+                            </div>
+                        </div>
+                    
                             <% } %>
                     <% } %>
                 
-        </div>
+        
 
         
         

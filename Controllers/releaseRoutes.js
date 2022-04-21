@@ -5,6 +5,13 @@ let oneback
 
 routerRelease.get('/', (req, res) => {
 
+        res.render('sneakers/releases/main')
+  
+  });
+
+  routerRelease.get('/:brand', (req, res) => {
+    let brand = req.params.brand
+    console.log("brand",brand)
     //let searchFilter = document.getElementById('dropDown')
     //let searchFilter = req.get('dropDown')
     let searchFilter = req.query.dropDown
@@ -21,24 +28,14 @@ routerRelease.get('/', (req, res) => {
     console.log("searchReturn",searchReturn)
   
     Sneaker.find(searchReturn).sort(sortReturn)
-      .then((sneaker) => res.render('sneakers/releases/main',
+      .then((sneaker) => res.render('sneakers/releases/brand',
       {
           sneakers:sneaker,
-          search: req.query
+          search: req.query,
+          brand:brand
       }
       ))
       .catch(err => res.send(err))
-  
-  });
-
-  routerRelease.get('/:brand', (req, res) => {
-      let brand = req.params.brand
-      console.log("brand",brand)
-    res.render('sneakers/releases/brand',
-    {
-        brand:brand
-    }
-    )  
 });
 
   module.exports = routerRelease

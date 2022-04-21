@@ -1,7 +1,7 @@
 const express = require('express');
 const Sneaker = require('../models/sneaker-model');
 const router = express.Router();
-let oneback
+let onePageBack
 
 
 /////current is "/home"
@@ -59,19 +59,21 @@ router.get('/nonCurrent', (req, res) => {
 
 //create route = addes data into the model
 router.get('/new', (req, res) => {
-  oneback = req.get('referer')
+  onePageBack = req.get('referer')
 
-  res.render('sneakers/new', { sneaker: new Sneaker()})
+  res.render('sneakers/new', { sneaker: new Sneaker(),
+    onePageBack:onePageBack
+  })
 
   })
 
 router.post('/', (req, res) => {
     req.body.styleCode = req.body.styleCode.toUpperCase()
     req.body.size = parseFloat(req.body.size)
-
+    req.body.brand = capFirstLetter(req.body.brand)
     Sneaker.create(req.body)
     .then(() => {
-        res.redirect(oneback);
+        res.redirect(onePageBack);
       })
     .catch(err => res.send(err))
 })
@@ -79,10 +81,12 @@ router.post('/', (req, res) => {
 ///show by ID
 router.get('/:id', (req, res) => {
     const id = req.params.id;
+    onePageBack = req.get('referer')
     Sneaker.findById(id)
     .then(sneaker => res.render('sneakers/single',
     {
-        sneaker:sneaker
+        sneaker:sneaker,
+        onePageBack:onePageBack
     }
     ))
     .catch(err => res.send(err))
@@ -95,12 +99,14 @@ router.get('/:id', (req, res) => {
 
 router.get('/:id/edit', (req, res) => {
     const id = req.params.id;
-    oneback = req.get('referer')
+    onePageBack = req.get('referer')
 
     Sneaker.findById(id)
     .then(sneaker => res.render('sneakers/edit',
     {
-        sneaker:sneaker
+        sneaker:sneaker,
+        onePageBack:onePageBack
+        
     }
     ))
     .catch(err => res.send(err))
@@ -112,14 +118,15 @@ router.get('/:id/edit', (req, res) => {
 router.put('/:id', (req, res) => {
     req.body.styleCode = req.body.styleCode.toUpperCase()
     req.body.size = parseFloat(req.body.size)
-
+    req.body.brand = capFirstLetter(req.body.brand)
+    
     const id = req.params.id;
     Sneaker.findByIdAndUpdate(
         id,
         req.body
         )
     .then(() => {
-        res.redirect(oneback);
+        res.redirect(onePageBack);
       })
 
     .catch(err => res.send(err))
@@ -130,10 +137,10 @@ router.put('/:id', (req, res) => {
 /////Delete by id
 router.delete('/:id', (req, res) => {
     const id = req.params.id;
-    oneback = req.get('referer')
+    onePageBack = req.get('referer')
     Sneaker.findByIdAndDelete(id)
     .then(() => {
-        res.redirect(oneback);
+        res.redirect(onePageBack);
       })
       .catch(console.error);
         });
@@ -190,4 +197,7 @@ function sortFunc(sortBY,searchFilter){
 }
 
 
-
+/////make first letter of cap
+function capFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}

@@ -2,10 +2,9 @@
 <html>
     
     <header>
-        <h1>Sneakers App: Upcoming Sneaker Releases</h1>
-        <h1>Brand: <%=brand%></h1>
+        <h1>Upcoming <%=brand%> Releases</h1>
 
-        <a href="/releases">Cancel</a>
+        <a href="/releases">Back to Upcoming Releases</a>
     </header>
 
 
@@ -21,10 +20,11 @@
           <div></div>
 
 
-          <div class ="container">
+          
                
                     <% for(let i = 0; i < sneakers.length; i++) { %>
                         <% if(sneakers[i].status == "upcoming" && sneakers[i].brand.toUpperCase() == brand.toUpperCase()) { %>
+                            <div class ="single-sneaker-Container">
                             <ul>
                                 <div class="sneakerDisplayBox">
                                     <img src="<%=sneakers[i].imageLinks%>" height="145.4px" width="204px" />
@@ -35,13 +35,19 @@
                                     <li>Style:  <%=sneakers[i].style %></li>
                                     <li>Style Code: <%=sneakers[i].styleCode %></li>
                                     <li>Retail Price:  <%=sneakers[i].retailPrice %></li>
+                                    <li>Release Date:  <%=sneakers[i].releaseDate %></li>
+                                    <li>URL: <%=sneakers[i].urlflightClub %></li>
                                     <li>Current:    <%=sneakers[i].status %></li>
                                     <li>ID: <%=sneakers[i]._id%></li>
-                                    <a class="edit-button" href="/home/<%=sneakers[i]._id%>/edit">Edit</a>
-                                    <form action="/home/<%=sneakers[i]._id%>?_method=DELETE" method="POST"><input type="submit" value="Delete" /></form>
+                                    
 
                                 </div>
                             </ul>
+                            <div class ="sneaker-Btn-Box">
+                           
+                                    <a class="edit-button" href="/home/<%=sneakers[i]._id%>/edit">Edit</a>
+                                    <form action="/home/<%=sneakers[i]._id%>?_method=DELETE" method="POST"><input type="submit" value="Delete" /></form>
+                            </div>
                         <% } %>
                     <% } %>
                 

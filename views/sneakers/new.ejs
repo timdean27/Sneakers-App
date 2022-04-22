@@ -6,6 +6,8 @@
     <form action="/home" method="POST">
         
         <%- include('../../partials/creat_forms.ejs') %>
+        <label for="uniqueID">uniqueID</label>
+        <input type="text" id="uniqueID" name="uniqueID" value="<%=sneaker.uniqueID%>"/>
         <br>
         <button type="submit">Submit</button>
         <a href="<%=onePageBack%>">Cancel</a>

@@ -7,6 +7,7 @@ const methodOverride = require('method-override')
 
 const requireRouter = require('./Controllers/router');
 const requireReleaseRouter = require('./Controllers/releaseRoutes');
+const requireAccountingRouter = require('./Controllers/accountingRoutes');
 app.set('view engine', 'ejs');
 
 
@@ -18,7 +19,7 @@ app.use(ejsLayouts);
 app.use(express.urlencoded({ extended: true }));
 app.use('/home', requireRouter);
 app.use('/releases', requireReleaseRouter);
-
+app.use('/accounting', requireAccountingRouter);
 
 
 app.set('port', process.env.PORT || 3000);

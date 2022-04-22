@@ -14,6 +14,7 @@ const SneakerSchema = new mongoose.Schema(
         releaseDate: {type: Date},
         description: {type: String},
         urlflightClub: {type: String},
+        uniqueID:{type: String,required: true},
     },
     
   );

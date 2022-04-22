@@ -1,0 +1,18 @@
+<h1>Accounting</h1>
+
+<% for(let i = 0; i < accounting.length; i++) { %>
+<ul>
+    <div>
+        <li>uniqueID: <%=accounting[i].uniqueID%></li>
+        <li>Name:   <%=accounting[i].name%></li>
+        <li>retailPrice:   <%=accounting[i].retailPrice%></li>
+        <li>soldPrice: <%=accounting[i].soldPrice%></li>
+        <li>marketPrice:   <%=accounting[i].marketPrice%></li>
+        <li>status: <%=accounting[i].status%></li>
+        <li>releaseDate:   <%=accounting[i].releaseDate%></li>
+        <li>soldDate: <%=accounting[i].soldDate%></li>
+        
+
+    </div>
+</ul>
+<%} %>

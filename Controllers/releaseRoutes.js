@@ -10,6 +10,7 @@ routerRelease.get('/', (req, res) => {
   });
 
   routerRelease.get('/:brand', (req, res) => {
+    
     let brand = capFirstLetter(req.params.brand)
     console.log("brand",brand)
     //let searchFilter = document.getElementById('dropDown')

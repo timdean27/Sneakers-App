@@ -4,12 +4,14 @@ const AccountingSchema = new mongoose.Schema(
     {
         uniqueID:{type: String,required: true},
         name: {type: String},
+        releaseDate: {type: Date},
+        soldDate:{type: Date},
         retailPrice: {type: Number},
         soldPrice: {type: Number},
         marketPrice:{type: Number},
-        status: {type: String, default: "current"},
-        releaseDate: {type: Date},
-        soldDate:{type: Date},
+        profit:{type: Number},
+        status: {type: String},
+       
         
     },
     

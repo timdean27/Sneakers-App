@@ -1,5 +1,6 @@
 const express = require('express');
 const Sneaker = require('../models/sneaker-model');
+const Accounting = require('../models/accounting-model');
 const router = express.Router();
 let onePageBack =[]
 
@@ -57,7 +58,7 @@ router.get('/nonCurrent', (req, res) => {
 
 
 
-//create route = addes data into the model
+//create route = adds data into the model
 router.get('/new', (req, res) => {
   onePageBack[0] = req.get('referer')
 
@@ -72,10 +73,12 @@ router.post('/', (req, res) => {
     req.body.size = parseFloat(req.body.size)
     req.body.brand = capFirstLetter(req.body.brand)
     Sneaker.create(req.body)
-    .then(() => {
-        res.redirect(onePageBack[0]);
-      })
-    .catch(err => res.send(err))
+    .then(()=>{Accounting.create({uniqueID:req.body.uniqueID}).then(() => {
+      res.redirect(onePageBack[0]);
+      UPDateAccColl()
+    })
+  .catch(err => res.send(err))})
+    
 })
 
 ///show by ID
@@ -127,9 +130,11 @@ router.put('/:id', (req, res) => {
         )
     .then(() => {
         res.redirect(onePageBack[1]);
+        UPDateAccColl()
       })
 
     .catch(err => res.send(err))
+    
   });
 
 
@@ -172,7 +177,7 @@ if(typedname != null && typedname !== '' && typedsize != '' && typedsize != null
   search.size = typedsize
   //console.log("search.name2",search.name)
 }
-return search
+return search 
 }
 
 ///sortfunction
@@ -201,3 +206,33 @@ function sortFunc(sortBY,searchFilter){
 function capFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
+
+
+
+/////pass data from Sneaker collection to Accounting 
+function UPDateAccColl(){
+  Sneaker.find({},{ uniqueID: 1,
+                        name:1,
+                        retailPrice:1,
+                        releaseDate:1,
+                        status:1,
+                        _id: 0 },(err, sneakers) =>{
+  sneakers.forEach(sneaker=>{
+            Accounting.findOneAndUpdate({uniqueID: sneaker.uniqueID},
+            {
+            name:sneaker.name,
+            retailPrice:sneaker.retailPrice,
+            releaseDate:sneaker.releaseDate,
+            status:sneaker.status,
+          },
+            {new:true}
+            ,(err, stuff) =>{
+        console.log(stuff);
+          });
+        })
+  
+    })
+  }
+
+
+

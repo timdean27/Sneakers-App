@@ -1,18 +1,35 @@
-<h1>Accounting</h1>
+<link rel="stylesheet" type="text/css" href="../accounting-styles.css"/>
 
-<% for(let i = 0; i < accounting.length; i++) { %>
-<ul>
-    <div>
-        <li>uniqueID: <%=accounting[i].uniqueID%></li>
-        <li>Name:   <%=accounting[i].name%></li>
-        <li>retailPrice:   <%=accounting[i].retailPrice%></li>
-        <li>soldPrice: <%=accounting[i].soldPrice%></li>
-        <li>marketPrice:   <%=accounting[i].marketPrice%></li>
-        <li>status: <%=accounting[i].status%></li>
-        <li>releaseDate:   <%=accounting[i].releaseDate%></li>
-        <li>soldDate: <%=accounting[i].soldDate%></li>
+<table>
+    <tr>
+        <th>Update</th>
+        <th>uniqueID</th>
+        <th>Name</th>
+        <th>Release Date</th>
+        <th>Sold Date</th>
+        <th>Retail Price</th>
+        <th>Market Price</th>
+        <th>Sold Price</th>
+        <th>Profit</th>
+        <th>Status</th>
+    </tr>
+
+
+
+<% for(let i = 0; i < account.length; i++) { %>
+    <tr>
+        <td><a class="edit-button" href="/accounting/<%=account[i].id%>/edit">Edit</a></td>
+        <td><%=account[i].uniqueID%></td>
+        <td><%=account[i].name%></td>
+        <td><%=account[i].releaseDate%></td>
+        <td><%=account[i].soldDate%></td>
+        <td><%=account[i].retailPrice%></td>
+        <td><%=account[i].marketPrice%></td>
+        <td><%=account[i].soldPrice%></td>
+        <td><%=account[i].profit%></td>
+        <td><%=account[i].status%></td>
         
+    </tr>
 
-    </div>
-</ul>
 <%} %>
+  </table>

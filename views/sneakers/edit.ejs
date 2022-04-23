@@ -5,14 +5,15 @@
     
 <body>
     <form action="/home/<%=sneaker._id%>/?_method=put" method="POST">
-        <%- include('../../partials/creat_forms.ejs') %>
+        <%- include('../../SneakersPartials/creat_forms.ejs') %>
         <label for="uniqueID">uniqueID</label>
         <input type="text" id="uniqueID" name="uniqueID" value="<%=sneaker.uniqueID%>" disabled/>
         
         <br>
 
         <button type="submit">Submit</button>
-        <a href="<%=onePageBack%>">Cancel</a>
+        
         
     </form>
+    <a href="<%=onePageBack%>">Cancel</a>
 </body>

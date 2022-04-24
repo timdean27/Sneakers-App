@@ -1,16 +1,46 @@
 <link rel="stylesheet" type="text/css" href="../accounting-styles.css"/>
 
+
+
+
 <table>
     <tr>
         <th>Update</th>
-        <th>uniqueID</th>
+        <th>uniqueID
+            <form action="/accounting" method="GET">
+            <button name="filterBTN" value="up-uniqueID" type="submit">Up</button>
+            <button name="filterBTN" value="down-uniqueID"type="submit">Down</button>
+            </form>
+        </th>
+
         <th>Name</th>
         <th>Release Date</th>
         <th>Sold Date</th>
-        <th>Retail Price</th>
-        <th>Market Price</th>
-        <th>Sold Price</th>
-        <th>Profit</th>
+
+        <th>Retail Price
+            <form action="/accounting" method="GET">
+                <button name="filterBTN" value="up-retailPrice" type="submit">Up</button>
+                <button name="filterBTN" value="down-retailPrice"type="submit">Down</button>
+            </form>
+        </th>
+        <th>Market Price
+            <form action="/accounting" method="GET">
+                <button name="filterBTN" value="up-marketPrice" type="submit">Up</button>
+                <button name="filterBTN" value="down-marketPrice"type="submit">Down</button>
+            </form>
+        </th>
+        <th>Sold Price
+            <form action="/accounting" method="GET">
+                <button name="filterBTN" value="up-soldPrice" type="submit">Up</button>
+                <button name="filterBTN" value="down-soldPrice"type="submit">Down</button>
+            </form>
+        </th>
+        <th>Profit
+            <form action="/accounting" method="GET">
+            <button name="filterBTN" value="up-profit" type="submit">Up</button>
+            <button name="filterBTN" value="down-profit"type="submit">Down</button>
+            </form>
+        </th>
         <th>Status</th>
     </tr>
 

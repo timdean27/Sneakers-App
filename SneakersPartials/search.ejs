@@ -1,14 +1,16 @@
-
-
-    <input type="text" name="name" value="<%= search.name%>"placeholder="Search by Name">
-    
-    
-    <input type="text" name="size" value="<%= search.size%>" placeholder="Search by Size">
+    <div class = "searchboxs">
+        <div>
+            <input type="text" name="name" value="<%= search.name%>"placeholder="Search by Name">
+        </div>
+        <div>
+            <input type="text" name="size" value="<%= search.size%>" placeholder="Search by Size">
+        </div>
     <button type="submit">Search</button>
-    
+    </div>
 
     <br>
 
+    <div>
     <select name = "dropDown">
         <option value = "priceLowHigh">Sort by Price: Low to High</option>
         <option value = "priceHighLow">Sort by Price: High to Low</option>
@@ -16,6 +18,5 @@
         <option value = "sizeStoL">Sort by Size: Smallest to Largest</option>
      </select>
      <button type="submit">Sort</button>
+    </div>
 
-
-    

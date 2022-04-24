@@ -5,7 +5,13 @@ const routerAcc= express.Router();
 
 routerAcc.get('/', (req, res) => {
     
-    Accounting.find()
+    console.log(req.query.filterBTN)
+    let searchFilter = req.query.filterBTN
+    let sortBY = {uniqueID: 1}
+    let sortReturn = sortFunc(sortBY,searchFilter)
+    console.log(sortBY)
+    console.log('sortReturn ',sortReturn)
+    Accounting.find().sort(sortReturn)
     .then((account) => res.render('accounting/accountingMain',
     {
         account:account,
@@ -53,3 +59,17 @@ routerAcc.put('/:id', (req, res) => {
 
 module.exports = routerAcc
 
+
+function sortFunc(sortBY,searchFilter){
+    console.log("Printing from sortFunc",searchFilter)
+    let split= searchFilter.split('-')
+    console.log("split",split[1])
+    if(split[0] == "up"){
+        sortBY = {[split[1]]: -1}
+      }
+    else if (split[0]== "down"){
+          sortBY = {[split[1]]: 1}
+      }
+    console.log("Printing from sortFunc sortBY ",sortBY)
+   return sortBY
+  }

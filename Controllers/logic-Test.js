@@ -109,7 +109,7 @@ console.log(search)
 // }
 
 
-Accounting.find({uniqueID: "00000001"}, function(err, stuff){
+Accounting.find({}).sort({profit: -1}).exec(function(err, stuff){
     console.log(stuff);
     console.log(stuff.length);
     //mongoose.close();

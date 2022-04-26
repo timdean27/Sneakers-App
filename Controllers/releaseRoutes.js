@@ -11,17 +11,21 @@ routerRelease.get('/', (req, res) => {
   });
 
   routerRelease.get('/:brand', (req, res) => {
-    
+    /////make first letter of cap
     let brand = capFirstLetter(req.params.brand)
     console.log("brand",brand)
-    //let searchFilter = document.getElementById('dropDown')
-    //let searchFilter = req.get('dropDown')
-    let searchFilter = req.query.dropDown
+
+    ///sortfunction
+    let mainFilter = req.query.dropDown
+    let splitFilterMain
+    if (mainFilter != null){
+      splitFilterMain= mainFilter
+    }
+    else {splitFilterMain = "up-releaseDate"}
     let sortBY = {}
-    console.log("filter",searchFilter)
-    let sortReturn = sortFunc(sortBY,searchFilter)
-    console.log("sortReturn",sortReturn)
+    let sortReturn = sortFunc(sortBY,splitFilterMain)
   
+    ///search function
     let search = {}
     let typedname = req.query.name
     let typedsize = req.query.size
@@ -69,26 +73,20 @@ function searchFunc(search,typedname,typedsize){
     return search
     }
     
-    ///sortfunction
-    function sortFunc(sortBY,searchFilter){
-      console.log("Printing from sortFunc",searchFilter)
-    
-    
-      if(searchFilter == "priceHighLow"){
-        sortBY = {retailPrice: -1}
-      }
-      else if (searchFilter== "sizeLtoS"){
-        sortBY = {size: -1}
-      }
-      else if (searchFilter == "sizeStoL"){
-        sortBY = {size: 1}
-      }
-      else{
-        sortBY = {retailPrice: 1}
-      }
-      console.log("Printing from sortFunc sortBY ",sortBY)
-     return sortBY
+///sortfunction
+function sortFunc(sortBY,splitFilterMain){
+  console.log("Printing from sortFunc",splitFilterMain)
+  splitFilterMain = splitFilterMain.split("-")
+  console.log("split",splitFilterMain[1])
+  if(splitFilterMain[0] == "up"){
+      sortBY = {[splitFilterMain[1]]: -1}
     }
+  else if (splitFilterMain[0]== "down"){
+        sortBY = {[splitFilterMain[1]]: 1}
+    }
+  console.log("Printing from sortFunc sortBY ",sortBY)
+ return sortBY
+}
 
     /////make first letter of cap
 function capFirstLetter(string) {

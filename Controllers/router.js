@@ -7,16 +7,23 @@ let onePageBack =[]
 
 /////current is "/home"
 router.get('/', (req, res) => {
-  
-  let searchFilter = req.query.dropDown
+  ///sortfunction
+  let mainFilter = req.query.dropDown
+  let splitFilterMain
+    if (mainFilter != null){
+      splitFilterMain= mainFilter
+    }
+    else {splitFilterMain = "up-releaseDate"}
   let sortBY = {}
-  let sortReturn = sortFunc(sortBY,searchFilter)
+  let sortReturn = sortFunc(sortBY,splitFilterMain)
+  // console.log("sortReturn",sortReturn)
 
+  ///search function
   let search = {}
   let typedname = req.query.name
   let typedsize = req.query.size
   let searchReturn = searchFunc(search,typedname,typedsize)
-  console.log("searchReturn",searchReturn)
+  // console.log("searchReturn",searchReturn)
 
   Sneaker.find(searchReturn).sort(sortReturn)
     .then((sneaker) => res.render('sneakers/current',
@@ -26,24 +33,27 @@ router.get('/', (req, res) => {
     }
     ))
     .catch(err => res.send(err))
-   
+    UPDateAccColl()
 });
 
 router.get('/nonCurrent', (req, res) => {
-  //let searchFilter = document.getElementById('dropDown')
-  //let searchFilter = req.get('dropDown')
-  let searchFilter = req.query.dropDown
+  ///sortfunction
+  let mainFilter = req.query.dropDown
+  let splitFilterMain
+    if (mainFilter != null){
+      splitFilterMain= mainFilter
+    }
+    else {splitFilterMain = "up-releaseDate"}
   let sortBY = {}
-  console.log("filter",searchFilter)
-  let sortReturn = sortFunc(sortBY,searchFilter)
-  console.log("sortReturn",sortReturn)
+  let sortReturn = sortFunc(sortBY,splitFilterMain)
 
+  ///search function
   let search = {}
   let typedname = req.query.name
   let typedsize = req.query.size
 
   let searchReturn = searchFunc(search,typedname,typedsize)
-  console.log("searchReturn",searchReturn)
+  //console.log("searchReturn",searchReturn)
 
   Sneaker.find(searchReturn).sort(sortReturn)
     .then((sneaker) => res.render('sneakers/nonCurrent',
@@ -60,18 +70,27 @@ router.get('/nonCurrent', (req, res) => {
 
 //create route = adds data into the model
 router.get('/new', (req, res) => {
-  onePageBack[0] = req.get('referer')
+    onePageBack[0] = req.get('referer')
 
-  res.render('sneakers/new', { sneaker: new Sneaker(),
-    onePageBack:onePageBack[0]
-  })
 
-  })
+///////function to creat a uniqueID
+    let getUniqueID
+    let UniqueID = uniqueIDGenerator(getUniqueID)
+    console.log("UniqueID", UniqueID)
+
+
+    res.render('sneakers/new', { sneaker: new Sneaker(),
+    onePageBack:onePageBack[0],
+    UniqueID:UniqueID 
+    })
+})
 
 router.post('/', (req, res) => {
+
     req.body.styleCode = req.body.styleCode.toUpperCase()
     req.body.size = parseFloat(req.body.size)
     req.body.brand = capFirstLetter(req.body.brand)
+  
     Sneaker.create(req.body)
     .then(()=>{Accounting.create({uniqueID:req.body.uniqueID}).then(() => {
       res.redirect(onePageBack[0]);
@@ -181,22 +200,17 @@ return search
 }
 
 ///sortfunction
-function sortFunc(sortBY,searchFilter){
-  console.log("Printing from sortFunc",searchFilter)
-
-
-  if(searchFilter == "priceHighLow"){
-    sortBY = {retailPrice: -1}
-  }
-  else if (searchFilter== "sizeLtoS"){
-    sortBY = {size: -1}
-  }
-  else if (searchFilter == "sizeStoL"){
-    sortBY = {size: 1}
-  }
-  else{
-    sortBY = {retailPrice: 1}
-  }
+function sortFunc(sortBY,splitFilterMain){
+  console.log("Printing from sortFunc",splitFilterMain)
+  splitFilterMain = splitFilterMain.split("-")
+  console.log("split",splitFilterMain[1])
+  if(splitFilterMain[0] == "up"){
+      sortBY = {[splitFilterMain[1]]: -1}
+    }
+  else if (splitFilterMain[0]== "down"){
+        sortBY = {[splitFilterMain[1]]: 1}
+    }
+    else{{retailPrice: -1}}
   console.log("Printing from sortFunc sortBY ",sortBY)
  return sortBY
 }
@@ -227,7 +241,7 @@ function UPDateAccColl(){
           },
             {new:true}
             ,(err, stuff) =>{
-        console.log(stuff);
+        //console.log("UPDateAccColl",stuff);
           });
         })
   
@@ -235,4 +249,33 @@ function UPDateAccColl(){
   }
 
 
+///////function to creat a uniqueID
 
+function uniqueIDGenerator(getUniqueID){
+
+  Accounting.find({},function(err, stuff){
+    let currentIvalue = stuff.length
+    console.log("inside func currentIvalue",currentIvalue);
+
+    for(let i = currentIvalue+1; i <= currentIvalue+1; i++){
+      if(i<10){
+        getUniqueID = `0000000${i}`;
+      console.log("inside Unique ID if statment one",getUniqueID)
+      }
+      else if (i>=10 && i < 100){
+        getUniqueID = `000000${i}`;
+        console.log("inside Unique ID if statment two",getUniqueID)
+      }
+      else if (i>=100 && i < 1000){
+        getUniqueID = `00000${i}`
+     }
+      else if (i>=1000 && i < 10000){
+        getUniqueID = `0000${i}`
+      }
+    }
+    console.log("getUniqueID inside find",getUniqueID)
+      return getUniqueID
+  });
+  console.log("getUniqueID inside func before return",getUniqueID)
+      return getUniqueID
+} 

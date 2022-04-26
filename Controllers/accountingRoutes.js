@@ -4,14 +4,15 @@ const Sneaker = require('../models/sneaker-model');
 const routerAcc= express.Router();
 
 routerAcc.get('/', (req, res) => {
-    
-    console.log(req.query.filterBTN)
-    let searchFilter = req.query.filterBTN
-    let sortBY = {uniqueID: 1}
-    let sortReturn = sortFunc(sortBY,searchFilter)
-    console.log(sortBY)
-    console.log('sortReturn ',sortReturn)
-    Accounting.find().sort(sortReturn)
+    let filter = req.query.filterBTN
+    let splitFilter
+    if (filter != null){
+        splitFilter= filter
+    }
+    else {splitFilter = "down-uniqueID"}
+    let sortBY = {}
+
+    Accounting.find().sort(sortFunc(sortBY,splitFilter))
     .then((account) => res.render('accounting/accountingMain',
     {
         account:account,
@@ -34,13 +35,13 @@ routerAcc.get('/:id/edit', (req, res) => {
 });
 //edit by ID we found
 routerAcc.put('/:id', (req, res) => {
-    console.log(req.body)
+    //console.log(req.body)
     let sold = req.body.soldPrice;
-    console.log("sold",sold)
+    //console.log("sold",sold)
     let retail = req.body.retailPrice;
-    console.log("reatil",retail)
+    //console.log("reatil",retail)
     let profit = (sold - retail)
-    console.log(profit)
+    //console.log(profit)
     Accounting.findOneAndUpdate({ _id: req.params.id },{
             soldDate:req.body.soldDate,
             soldPrice:req.body.soldPrice,
@@ -55,20 +56,28 @@ routerAcc.put('/:id', (req, res) => {
     
   });
 
+  routerAcc.delete('/:id', (req, res) => {
+    const id = req.params.id;
+    Accounting.findByIdAndDelete(id)
+    .then(() => {
+        res.redirect('/accounting');
+      })
+      .catch(console.error);
+        });
 
 
 module.exports = routerAcc
 
 
-function sortFunc(sortBY,searchFilter){
-    console.log("Printing from sortFunc",searchFilter)
-    let split= searchFilter.split('-')
-    console.log("split",split[1])
-    if(split[0] == "up"){
-        sortBY = {[split[1]]: -1}
+function sortFunc(sortBY,splitFilter){
+    console.log("Printing from sortFunc",splitFilter)
+    splitFilter = splitFilter.split("-")
+    console.log("split",splitFilter[1])
+    if(splitFilter[0] == "up"){
+        sortBY = {[splitFilter[1]]: -1}
       }
-    else if (split[0]== "down"){
-          sortBY = {[split[1]]: 1}
+    else if (splitFilter[0]== "down"){
+          sortBY = {[splitFilter[1]]: 1}
       }
     console.log("Printing from sortFunc sortBY ",sortBY)
    return sortBY

@@ -40,38 +40,7 @@ console.log(search)
 
 // function searchByUnigueID(search,totalSneakers ){
 
-// for(let i = 0; i < 12; i++){
-//   if(i<10){
-//     search = {uniqueID: `0000000${i}`}
-//       Sneaker.find({},{ uniqueID: 1,
-//                               name:1,
-//                               retailPrice:1,
-//                               releaseDate:1,
-//                               _id: 0 },(err, stuff) =>{
-//         console.log(stuff);
-//           //mongoose.close();
-//       })
-//     }
-//     else if (i>=10 && i < 100){
-//       search = {uniqueID: `000000${i}`}
-//       Sneaker.find({},{ uniqueID: 1,
-//                             name:1,
-//                             retailPrice:1,
-//                             releaseDate:1,
-//                             _id: 0 },(err, sneaker) =>{
 
-//        Accounting.findOneAndUpdate({uniqueID: `000000${i}`,
-//                             name:sneakerName,
-//                             retailPrice:sneakerRetailPrice ,
-//                             releaseDate:sneakerReleaseDate ,}
-//                             ,(err, stuff) =>{
-
-//     });
-//             //mongoose.close();
-//         })
-//       }
-//   }
-//   }
 
 // searchByUnigueID()
 // Accounting.findOneAndUpdate({uniqueID: `000000${i}`,
@@ -109,8 +78,37 @@ console.log(search)
 // }
 
 
-Accounting.find({}).sort({profit: -1}).exec(function(err, stuff){
-    console.log(stuff);
-    console.log(stuff.length);
-    //mongoose.close();
+// Accounting.find({}).sort({profit: -1}).exec(function(err, stuff){
+//     console.log(stuff);
+//     console.log(stuff.length);
+//     //mongoose.close();
+//   });
+
+let uniqueID
+function uniqueIDGenerator(){
+
+  Accounting.find({},function(err, stuff){
+    let uniqueID 
+    let currentIvalue = stuff.length
+    console.log(currentIvalue);
+
+    for(let i = currentIvalue+1; i <= currentIvalue+1; i++){
+      if(i<10){
+      uniqueID = `0000000${i}`;
+      console.log(uniqueID)
+      }
+      else if (i>=10 && i < 100){
+      uniqueID = `000000${i}`;
+      console.log(uniqueID)
+      }
+      else if (i>=100 && i < 1000){
+        uniqueID = `00000${i}`
+     }
+      else if (i>=1000 && i < 10000){
+        uniqueID = `0000${i}`
+      }
+    }
   });
+      return uniqueID
+} 
+uniqueIDGenerator()

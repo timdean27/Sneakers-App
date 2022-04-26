@@ -192,7 +192,38 @@
     "description": "Drawing from the three-pice 'Passport Pack' which takes inspiration from the early '90s days of the Union crew is the Union LA x Nike Dunk Low 'Argon.' Each style from the pack pays homage to the cities the retailer called or calls home, New York, Los Angeles, and Tokyo. It features unfinished red stitching and a tearaway ripstop upper that reveals a leather underlay in varying shades of blue. On the lateral side is a yellow 'UN/LA' tag with a heel emblem marked with Union's Frontman graphic, which reappears on the blue translucent rubber outsole.",
     "urlflightClub": "https://www.flightclub.com/union-la-x-dunk-low-dj9649-400",
     "uniqueID":"00000012"
-    }
+    },
+
+    {
+        "name":"AIR JORDAN 1 RETRO HIGH OG 'DARK MOCHA'",
+            "brand": "Jordan",
+            "size": 9.5,
+            "color": "sail/dark mocha/black/black ",
+            "style": "DARK MOCHA AIR JORDAN 1",
+            "styleCode": "555088-105",
+            "retailPrice": 170,
+            "imageLinks": "https://cdn.flightclub.com/2200/TEMPLATE/162310/1.jpg",
+            "status": "current",
+            "releaseDate": "10/31/20",
+            "description": "Featuring a look similar to Travis Scott's 2019 Air Jordan 1 collaboration, the Air Jordan 1 Retro High OG 'Dark Mocha' released in October 2020. The shoe's upper is built with leather, sporting a white base overlaid by black leather. The heel and collar incorporate Dark Mocha nubuck, while a nylon tongue and perforations on the toe box maintain the classic aesthetic. Air in the heel of the midsole provides cushioning.",
+            "urlflightClub": "https://www.flightclub.com/air-jordan-1-retro-high-og-sail-dark-mocha-black-black-162310",
+            "uniqueID":"00000013"
+        },
+        {
+            "name":"AIR JORDAN 1 RETRO HIGH OG 'DARK MOCHA'",
+            "brand": "Jordan",
+            "size": 15,
+            "color": "sail/dark mocha/black/black ",
+            "style": "DARK MOCHA AIR JORDAN 1",
+            "styleCode": "555088-105",
+            "retailPrice": 170,
+            "imageLinks": "https://cdn.flightclub.com/2200/TEMPLATE/162310/1.jpg",
+            "status": "current",
+            "releaseDate": "10/31/20",
+            "description": "Featuring a look similar to Travis Scott's 2019 Air Jordan 1 collaboration, the Air Jordan 1 Retro High OG 'Dark Mocha' released in October 2020. The shoe's upper is built with leather, sporting a white base overlaid by black leather. The heel and collar incorporate Dark Mocha nubuck, while a nylon tongue and perforations on the toe box maintain the classic aesthetic. Air in the heel of the midsole provides cushioning.",
+            "urlflightClub": "https://www.flightclub.com/air-jordan-1-retro-high-og-sail-dark-mocha-black-black-162310",
+            "uniqueID":"00000014"
+            }
     
 
 

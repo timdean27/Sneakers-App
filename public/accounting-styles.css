@@ -6,26 +6,27 @@ table, th, td {
     border-collapse: collapse;
   }
 
+.filterBTNSgroup{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 .upBTN{
+  background-color: transparent;
   border: solid black;
   border-width: 0 3px 3px 0;
-  display: inline-block;
   padding: 3px;
- transform: rotate(-135deg);
+  transform: rotate(-135deg);
 }
 
 .downBTN{
+  background-color: transparent;
   border: solid black;
   border-width: 0 3px 3px 0;
-  display: inline-block;
   padding: 3px;
    transform: rotate(45deg);
 }
-.filterBTNS{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+
 
 .Acc-edit-button{
   display: inline-block;
@@ -37,5 +38,4 @@ table, th, td {
   text-decoration: none;
   color: black;
   border-radius: 5px;
-
 }

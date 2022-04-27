@@ -22,15 +22,14 @@ routerRelease.get('/', (req, res) => {
       splitFilterMain= mainFilter
     }
     else {splitFilterMain = "up-releaseDate"}
-    let sortBY = {}
-    let sortReturn = sortFunc(sortBY,splitFilterMain)
+    let sortReturn = sortFunc(splitFilterMain)
   
     ///search function
-    let search = {}
+  
     let typedname = req.query.name
     let typedsize = req.query.size
   
-    let searchReturn = searchFunc(search,typedname,typedsize)
+    let searchReturn = searchFunc(typedname,typedsize)
     console.log("searchReturn",searchReturn)
   
     Sneaker.find(searchReturn).sort(sortReturn)
@@ -52,8 +51,8 @@ routerRelease.get('/', (req, res) => {
 //Functions and Logic 
 
 ///search function
-function searchFunc(search,typedname,typedsize){ 
-
+function searchFunc(typedname,typedsize){ 
+    let search = {}
     if(typedname != null && typedname !== '')
     {
       search.name = new RegExp(typedname, 'i')
@@ -74,7 +73,8 @@ function searchFunc(search,typedname,typedsize){
     }
     
 ///sortfunction
-function sortFunc(sortBY,splitFilterMain){
+function sortFunc(splitFilterMain){
+  let sortBy ={}
   console.log("Printing from sortFunc",splitFilterMain)
   splitFilterMain = splitFilterMain.split("-")
   console.log("split",splitFilterMain[1])

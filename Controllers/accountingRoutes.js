@@ -10,9 +10,8 @@ routerAcc.get('/', (req, res) => {
         splitFilter= filter
     }
     else {splitFilter = "down-uniqueID"}
-    let sortBY = {}
 
-    Accounting.find().sort(sortFunc(sortBY,splitFilter))
+    Accounting.find().sort(sortFunc(splitFilter))
     .then((account) => res.render('accounting/accountingMain',
     {
         account:account,
@@ -69,16 +68,17 @@ routerAcc.put('/:id', (req, res) => {
 module.exports = routerAcc
 
 
-function sortFunc(sortBY,splitFilter){
-    console.log("Printing from sortFunc",splitFilter)
+function sortFunc(splitFilter){
+    let sortBY = {}
+    //console.log("Printing from sortFunc",splitFilter)
     splitFilter = splitFilter.split("-")
-    console.log("split",splitFilter[1])
+    //console.log("split",splitFilter[1])
     if(splitFilter[0] == "up"){
         sortBY = {[splitFilter[1]]: -1}
       }
     else if (splitFilter[0]== "down"){
           sortBY = {[splitFilter[1]]: 1}
       }
-    console.log("Printing from sortFunc sortBY ",sortBY)
+    //console.log("Printing from sortFunc sortBY ",sortBY)
    return sortBY
   }

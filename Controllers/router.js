@@ -47,10 +47,8 @@ router.get('/nonCurrent', (req, res) => {
   let sortReturn = sortFunc(splitFilterMain)
 
   ///search function
-
   let typedname = req.query.name
   let typedsize = req.query.size
-
   let searchReturn = searchFunc(typedname,typedsize)
   //console.log("searchReturn",searchReturn)
 
@@ -66,7 +64,7 @@ router.get('/nonCurrent', (req, res) => {
 
 
 
-//create route = adds data into the model
+//create route
 router.get('/new', async (req, res) =>{ 
 //calling function to creat a uniqueID
   let UniqueID = await uniqueIDGenerator()
@@ -99,8 +97,13 @@ router.post('/', (req, res) => {
 ///show by ID
 router.get('/:id', (req, res) => {
     const id = req.params.id;
-    onePageBack[0] = req.get('referer')
-
+    let refererPage = req.get('referer')
+    //console.log("refererPage.length() -5)",refererPage.substring(refererPage.length -5))
+    if (refererPage.substring(refererPage.length -5) != '/edit'){
+    onePageBack[0] = refererPage
+    }
+    //console.log("onePageBack[0] in view route",onePageBack[0])
+    
     Sneaker.findById(id)
     .then(sneaker => res.render('sneakers/single',
     {
@@ -117,7 +120,7 @@ router.get('/:id', (req, res) => {
 router.get('/:id/edit', (req, res) => {
     const id = req.params.id;
     onePageBack[1] = req.get('referer')
-
+    console.log("onePageBack[1] in edit route",onePageBack[1])
     Sneaker.findById(id)
     .then(sneaker => res.render('sneakers/edit',
     {

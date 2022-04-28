@@ -13,7 +13,7 @@ routerRelease.get('/', (req, res) => {
   routerRelease.get('/:brand', (req, res) => {
     /////make first letter of cap
     let brand = capFirstLetter(req.params.brand)
-    console.log("brand",brand)
+    //console.log("brand",brand)
 
     ///sortfunction
     let mainFilter = req.query.dropDown
@@ -30,7 +30,7 @@ routerRelease.get('/', (req, res) => {
     let typedsize = req.query.size
   
     let searchReturn = searchFunc(typedname,typedsize)
-    console.log("searchReturn",searchReturn)
+    //console.log("searchReturn inside get brand (releaseRoutes)",searchReturn)
   
     Sneaker.find(searchReturn).sort(sortReturn)
       .then((sneaker) => res.render('sneakers/releases/brand',
@@ -56,7 +56,7 @@ function searchFunc(typedname,typedsize){
     if(typedname != null && typedname !== '')
     {
       search.name = new RegExp(typedname, 'i')
-      //console.log("search.name2",search.name)
+      //console.log("searchFunc in releaseRoutes search.name2",search.name)
     }
     if(typedsize != null && typedname == '' && typedsize != '')
     {
@@ -75,16 +75,16 @@ function searchFunc(typedname,typedsize){
 ///sortfunction
 function sortFunc(splitFilterMain){
   let sortBy ={}
-  console.log("Printing from sortFunc",splitFilterMain)
+  //console.log("Printing from sortFunc in releaseRoutes",splitFilterMain)
   splitFilterMain = splitFilterMain.split("-")
-  console.log("split",splitFilterMain[1])
+  //console.log("split",splitFilterMain[1])
   if(splitFilterMain[0] == "up"){
       sortBY = {[splitFilterMain[1]]: -1}
     }
   else if (splitFilterMain[0]== "down"){
         sortBY = {[splitFilterMain[1]]: 1}
     }
-  console.log("Printing from sortFunc sortBY ",sortBY)
+  //console.log("Printing from end of sortFunc sortBY in releaseRoutes ",sortBY)
  return sortBY
 }
 

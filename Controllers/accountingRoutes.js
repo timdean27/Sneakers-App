@@ -70,7 +70,7 @@ module.exports = routerAcc
 
 function sortFunc(splitFilter){
     let sortBY = {}
-    //console.log("Printing from sortFunc",splitFilter)
+    //console.log("Printing from sortFunc in acc routes",splitFilter)
     splitFilter = splitFilter.split("-")
     //console.log("split",splitFilter[1])
     if(splitFilter[0] == "up"){
@@ -79,6 +79,6 @@ function sortFunc(splitFilter){
     else if (splitFilter[0]== "down"){
           sortBY = {[splitFilter[1]]: 1}
       }
-    //console.log("Printing from sortFunc sortBY ",sortBY)
+    //console.log("Printing from end of sortFunc sortBY in acc routes ",sortBY)
    return sortBY
   }

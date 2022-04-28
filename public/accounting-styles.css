@@ -6,24 +6,30 @@ table, th, td {
     border-collapse: collapse;
   }
 
-.filterBTNSgroup{
+.filterBTNSgroup{width:1.20vw;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column; 
+    margin: .15vw;
   }
+
+form{
+  width:1.20vw
+}
 .upBTN{
+  width: .5vw;
   background-color: transparent;
   border: solid black;
-  border-width: 0 3px 3px 0;
-  padding: 3px;
+  border-width: 0 .20vw .20vw 0;
+  padding: .25vw;
   transform: rotate(-135deg);
 }
 
 .downBTN{
+  width: .5vw;
   background-color: transparent;
   border: solid black;
-  border-width: 0 3px 3px 0;
-  padding: 3px;
+  border-width: 0 .20vw .20vw 0;
+  padding: .25vw;
    transform: rotate(45deg);
 }
 

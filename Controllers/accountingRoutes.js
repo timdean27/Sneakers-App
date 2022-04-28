@@ -22,7 +22,7 @@ routerAcc.get('/', (req, res) => {
 });
 
 routerAcc.get('/:id/edit', (req, res) => {
-    console.log(req.params.id)
+    //console.log(req.params.id)
     Accounting.findById(req.params.id)
     .then(account => res.render('accounting/AccEdit',
     {
@@ -34,13 +34,13 @@ routerAcc.get('/:id/edit', (req, res) => {
 });
 //edit by ID we found
 routerAcc.put('/:id', (req, res) => {
-    //console.log(req.body)
+ 
     let sold = req.body.soldPrice;
-    //console.log("sold",sold)
     let retail = req.body.retailPrice;
-    //console.log("reatil",retail)
-    let profit = (sold - retail)
-    //console.log(profit)
+    let profit;
+    sold != null && sold != "" ? profit = (sold - retail) :profit = ""
+    
+
     Accounting.findOneAndUpdate({ _id: req.params.id },{
             soldDate:req.body.soldDate,
             soldPrice:req.body.soldPrice,

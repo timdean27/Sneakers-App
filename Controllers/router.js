@@ -103,7 +103,7 @@ router.get('/:id', (req, res) => {
     onePageBack[0] = refererPage
     }
     //console.log("onePageBack[0] in view route",onePageBack[0])
-    
+
     Sneaker.findById(id)
     .then(sneaker => res.render('sneakers/single',
     {
@@ -120,7 +120,7 @@ router.get('/:id', (req, res) => {
 router.get('/:id/edit', (req, res) => {
     const id = req.params.id;
     onePageBack[1] = req.get('referer')
-    console.log("onePageBack[1] in edit route",onePageBack[1])
+    //console.log("onePageBack[1] in edit route",onePageBack[1])
     Sneaker.findById(id)
     .then(sneaker => res.render('sneakers/edit',
     {
@@ -138,8 +138,8 @@ router.put('/:id', (req, res) => {
     req.body.size = parseFloat(req.body.size)
     req.body.brand = capFirstLetter(req.body.brand)
 
-    console.log("onePageBack[0]",onePageBack[0])
-    console.log("onePageBack[1]",onePageBack[1])
+    //console.log("onePageBack[0]",onePageBack[0])
+    //console.log("onePageBack[1]",onePageBack[1])
     const id = req.params.id;
     Sneaker.findByIdAndUpdate(
         id,

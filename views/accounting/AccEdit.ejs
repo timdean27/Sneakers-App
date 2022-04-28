@@ -1,7 +1,11 @@
+<header>
 <h1>Editing Sneaker:<%=account.name%></h1>
 <h1>uniqueID:<%=account.uniqueID%></h1>
 
+<br><br>
+</header>
 
+<body>
 <form action="/accounting/<%=account._id%>/?_method=put" method="POST">
 <label for="soldDatee">Enter the Date Sold</label>
 <input  type="text" id="soldDate" name="soldDate" value="<%=account.soldDate%>" placeholder="soldDate"/>
@@ -22,4 +26,5 @@
 <br><br>
 <button type="submit">Submit</button>
 </form>
-<a href="/accounting">Cancel</a>
+<a class="cancel-btn" href="/accounting">Cancel</a>
+</body>

@@ -5,9 +5,11 @@
 <body>
     <form action="/home" method="POST">
         
-        <%- include('../../partials/creat_forms.ejs') %>
+        <%- include('../../SneakersPartials/creat_forms.ejs') %>
+        <label for="uniqueID">uniqueID</label>
+        <input type="text" id="uniqueID" name="uniqueID" value="<%=UniqueID%>" readonly="<%=UniqueID%>" placeholder="<%=UniqueID%>"/>
         <br>
         <button type="submit">Submit</button>
-        <a href="/Home">Cancel</a>
+        <a href="<%=onePageBack%>">Cancel</a>
     </form>
 </body>

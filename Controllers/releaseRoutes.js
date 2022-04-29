@@ -1,44 +1,46 @@
 const express = require('express');
 const Sneaker = require('../models/sneaker-model');
+const Accounting = require('../models/accounting-model');
 const routerRelease = express.Router();
 let oneback
 
 routerRelease.get('/', (req, res) => {
 
-    //let searchFilter = document.getElementById('dropDown')
-    //let searchFilter = req.get('dropDown')
-    let searchFilter = req.query.dropDown
-    let sortBY = {}
-    console.log("filter",searchFilter)
-    let sortReturn = sortFunc(sortBY,searchFilter)
-    console.log("sortReturn",sortReturn)
-  
-    let search = {}
-    let typedname = req.query.name
-    let typedsize = req.query.size
-  
-    let searchReturn = searchFunc(search,typedname,typedsize)
-    console.log("searchReturn",searchReturn)
-  
-    Sneaker.find(searchReturn).sort(sortReturn)
-      .then((sneaker) => res.render('sneakers/releases/main',
-      {
-          sneakers:sneaker,
-          search: req.query
-      }
-      ))
-      .catch(err => res.send(err))
+        res.render('sneakers/releases/main')
   
   });
 
   routerRelease.get('/:brand', (req, res) => {
-      let brand = req.params.brand
-      console.log("brand",brand)
-    res.render('sneakers/releases/brand',
-    {
-        brand:brand
+    /////make first letter of cap
+    let brand = capFirstLetter(req.params.brand)
+    //console.log("brand",brand)
+
+    ///sortfunction
+    let mainFilter = req.query.dropDown
+    let splitFilterMain
+    if (mainFilter != null){
+      splitFilterMain= mainFilter
     }
-    )  
+    else {splitFilterMain = "up-releaseDate"}
+    let sortReturn = sortFunc(splitFilterMain)
+  
+    ///search function
+  
+    let typedname = req.query.name
+    let typedsize = req.query.size
+  
+    let searchReturn = searchFunc(typedname,typedsize)
+    //console.log("searchReturn inside get brand (releaseRoutes)",searchReturn)
+  
+    Sneaker.find(searchReturn).sort(sortReturn)
+      .then((sneaker) => res.render('sneakers/releases/brand',
+      {
+          sneakers:sneaker,
+          search: req.query,
+          brand:brand
+      }
+      ))
+      .catch(err => res.send(err))
 });
 
   module.exports = routerRelease
@@ -49,12 +51,12 @@ routerRelease.get('/', (req, res) => {
 //Functions and Logic 
 
 ///search function
-function searchFunc(search,typedname,typedsize){ 
-
+function searchFunc(typedname,typedsize){ 
+    let search = {}
     if(typedname != null && typedname !== '')
     {
       search.name = new RegExp(typedname, 'i')
-      //console.log("search.name2",search.name)
+      //console.log("searchFunc in releaseRoutes search.name2",search.name)
     }
     if(typedsize != null && typedname == '' && typedsize != '')
     {
@@ -70,23 +72,23 @@ function searchFunc(search,typedname,typedsize){
     return search
     }
     
-    ///sortfunction
-    function sortFunc(sortBY,searchFilter){
-      console.log("Printing from sortFunc",searchFilter)
-    
-    
-      if(searchFilter == "priceHighLow"){
-        sortBY = {retailPrice: -1}
-      }
-      else if (searchFilter== "sizeLtoS"){
-        sortBY = {size: -1}
-      }
-      else if (searchFilter == "sizeStoL"){
-        sortBY = {size: 1}
-      }
-      else{
-        sortBY = {retailPrice: 1}
-      }
-      console.log("Printing from sortFunc sortBY ",sortBY)
-     return sortBY
+///sortfunction
+function sortFunc(splitFilterMain){
+  let sortBy ={}
+  //console.log("Printing from sortFunc in releaseRoutes",splitFilterMain)
+  splitFilterMain = splitFilterMain.split("-")
+  //console.log("split",splitFilterMain[1])
+  if(splitFilterMain[0] == "up"){
+      sortBY = {[splitFilterMain[1]]: -1}
     }
+  else if (splitFilterMain[0]== "down"){
+        sortBY = {[splitFilterMain[1]]: 1}
+    }
+  //console.log("Printing from end of sortFunc sortBY in releaseRoutes ",sortBY)
+ return sortBY
+}
+
+    /////make first letter of cap
+function capFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
